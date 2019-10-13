@@ -1,5 +1,5 @@
 import json 
-import sys
+import argparse  
 
 from lxml import etree as xml
 from abc import ABC, abstractmethod 
@@ -134,9 +134,15 @@ def main(students_filename, rooms_filename, out_format):
 
 
 if __name__ == '__main__':
-    argv = sys.argv
-    if (len(argv) == 4):
-        main(*argv[1:])
-    else:
-        print("Incorrect number of parameters!")
-
+    parser = argparse.ArgumentParser(description='Process some json files.')
+    parser.add_argument('students_file_path',
+                        type=str,
+                        help='Path to the students file.')
+    parser.add_argument('rooms_file_path',
+                        type=str,
+                        help='Input path to the students file.')
+    parser.add_argument('out_format',
+                        type=str,
+                        help='Choice the output format') 
+    args = parser.parse_args()  
+    main(args.students_file_path, args.rooms_file_path, args.out_format)
